@@ -1,9 +1,9 @@
 import uuid
 
 from app import app
-from flask import render_template, request
-from .db import stores, items
-from flask_smorest import abort
+from flask import render_template
+
+
 @app.route('/')
 def hello_world():
     return render_template('index.html')
