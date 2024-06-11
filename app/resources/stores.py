@@ -31,7 +31,7 @@ class Store(MethodView):
         return store, 201
 
 
-@blp.route("/store/<string: store_id>")
+@blp_store.route("/store/<string:store_id>")
 class StoreById(MethodView):
     def get(self, store_id):
         try:
