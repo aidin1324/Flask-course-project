@@ -2,24 +2,22 @@ from flask_smorest import Blueprint, abort
 from flask.views import MethodView
 import uuid
 from flask import request
-from app.db import items, stores
 
+from app.db import items, stores
+from app.schemas import StoreSchema
 
 blp_store = Blueprint('stores', __name__, description="operations on stores")
 
 
 @blp_store.route("/store")
 class Store(MethodView):
+    @blp_store.response(200, StoreSchema(many=True))
     def get(self):
         return {'stores': list(stores.values())}
 
-    def post(self):
-        request_data = request.get_json()
-
-        if "name" not in request_data:
-            abort(
-                404, message="Bad request: missing 'name'"
-            )
+    @blp_store.arguments(StoreSchema)
+    @blp_store.response(200, StoreSchema)
+    def post(self, request_data):
         for store in stores.values():
             if request_data["name"] == store["name"]:
                 abort(
@@ -33,6 +31,7 @@ class Store(MethodView):
 
 @blp_store.route("/store/<string:store_id>")
 class StoreById(MethodView):
+    @blp_store.response(200, StoreSchema)
     def get(self, store_id):
         try:
             return stores[store_id]
