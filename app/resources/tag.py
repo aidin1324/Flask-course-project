@@ -38,3 +38,7 @@ class Tag(MethodView):
     def get(self, tag_id: str) -> object:
         tag = TagModel.query.get_or_404(tag_id)
         return tag
+
+
+    def delete(self, tag_id: str) -> object:
+        pass
