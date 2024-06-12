@@ -12,7 +12,7 @@ blp_items = Blueprint('items', __name__, description="operations on item")
 class Item(MethodView):
     @blp_items.response(200, ItemSchema(many=True))
     def get(self):
-        return {'items': list(items.values())}
+        return items.values()
 
     @blp_items.arguments(ItemSchema)
     @blp_items.response(200, ItemSchema)

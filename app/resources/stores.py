@@ -13,7 +13,7 @@ blp_store = Blueprint('stores', __name__, description="operations on stores")
 class Store(MethodView):
     @blp_store.response(200, StoreSchema(many=True))
     def get(self):
-        return {'stores': list(stores.values())}
+        return stores.values()
 
     @blp_store.arguments(StoreSchema)
     @blp_store.response(200, StoreSchema)
